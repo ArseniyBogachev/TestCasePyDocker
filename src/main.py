@@ -35,7 +35,7 @@ def create_table():
         cursor.execute("""DELETE FROM test_table""")
 
 
-def use(cursor):
+def use():
     while True:
         for i in range(1, 31):
             data = generate_random_string()
@@ -50,9 +50,10 @@ def use(cursor):
             cursor.execute(query, insert_line)
             conn.commit()
 
-            #для дебага
+            # для дебага
             cursor.execute("""SELECT * FROM test_table""")
             print(cursor.fetchall())
+            # --------------------------------------------
 
             time.sleep(60)
         cursor.execute("""DELETE FROM test_table""")
@@ -63,7 +64,7 @@ if __name__ == '__main__':
         conn = psycopg2.connect(dbname=db_name, user=db_user, password=db_pass, host=db_host, port=db_port)
         cursor = conn.cursor()
         create_table()
-        use(cursor)
+        use()
         cursor.close()
         conn.close()
     except Exception as e:
